@@ -196,14 +196,29 @@ const countries = [
 
 // 1. Use the countries array to display all the countries.See the design
     console.log(`1. Use the countries array to display all the countries.See the design`);
+    document.body.style.margin = '0';
+    document.body.style.padding = '0';
+
+    const headerItems = document.querySelector('header');
+    headerItems.style.textAlign = 'center';
     const totalCountries = document.getElementById('total-countries')
     totalCountries.textContent = `total number of countries: ${countries.length}`;
 
-    const countriesWrapper = document.querySelector('countries-wrapper');
+    const countriesWrapper = document.querySelector('.countries-wrapper');
     let country;
     for(let i=0; i<countries.length; i++){
         country = document.createElement('p');
         country.textContent = countries[i];
+        country.style.border = `1px solid #90FC34`;
+        country.style.padding = `1.5em`;
+        country.style.marginTop = `0`;
         countriesWrapper.appendChild(country);
     }
-    console.log(countriesWrapper);
+    countriesWrapper.style.textAlign = `center`;
+    countriesWrapper.style.display = 'grid';
+    countriesWrapper.style.columnGap = '10px';
+    countriesWrapper.style.justifyContent = 'center';
+    countriesWrapper.style.gridTemplateColumns = `repeat(6, 1fr)`;
+    const countriesContainer = document.querySelector('.countries-container');
+    countriesContainer.style.padding = `0 15%`;
+    
