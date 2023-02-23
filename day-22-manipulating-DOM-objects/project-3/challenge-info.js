@@ -41,8 +41,8 @@ const challengesObject = {
         "D3.js",
     ],
     author: {
-        firstName: "Masyhar",
-        lastName: "Muharam",
+        firstName: "Asabeneh",
+        lastName: "Yetayeh",
         titles: [
         ["🌱", "Educator"],
         ["💻", "Programmer"],
@@ -195,7 +195,7 @@ const challengesObject = {
         },
     ],
 };
-
+    document.body.style.fontFamily = 'Montserrat';
     const scriptElement = document.getElementsByTagName("script")[0];
 
     /*create header (challenge header, challenge title, date and time)*/
@@ -210,6 +210,7 @@ const challengesObject = {
 
     const yearChallenge = document.createElement("span");
     yearChallenge.textContent = "2023";
+    yearChallenge.style.fontSize = '50px';
 
     const challengeTitle = document.createElement("h2");
     challengeTitle.textContent = `${challengesObject.challengeSubtitle}`;
@@ -376,6 +377,7 @@ const challengesObject = {
             }else{
                 specificChallenge.style.background = '#D61355';
             }
+            /* end styling the container challenge */
         }
         
         scriptElement.parentNode.insertBefore(challengeContainer, scriptElement);
@@ -385,6 +387,147 @@ const challengesObject = {
     /* create list of challenge and topics */
 
     /* create author information parts */
+    const authorInfoContainer = document.createElement('div');
+    authorInfoContainer.className = 'author-info-container';
     function authorInfo(){
+        const authorName = document.createElement('h1');
+        authorName.textContent = `${challengesObject.author.firstName} ${challengesObject.author.lastName}`
 
+        const authorBio = document.createElement('p');
+        authorBio.textContent = challengesObject.author.bio;
+        
+        authorInfoContainer.appendChild(authorName);
+        authorInfoContainer.appendChild(authorBio);
+
+        authorInfoContainer.style.textAlign = 'center';
+        authorInfoContainer.style.width = '80%';
+        authorInfoContainer.style.margin = '0 auto';
+        
+        scriptElement.parentNode.insertBefore(authorInfoContainer, scriptElement);
     }
+    authorInfo();
+    /* end create author information parts */
+
+    /* extras information part */
+    const triviaInformationContainer = document.createElement('div');
+    triviaInformationContainer.className = 'trivia-info-container';
+    function triviaInfo(){
+        const triviaTitlesInfo = challengesObject.author.titles.map(title => ({
+            titleIcon: title[0],
+            titleName: title[1]
+        }));
+        const triviaSkillsInfo = challengesObject.author.skills.map(skill => ({
+            skillIcon: '✅',
+            skillName: skill,
+        }));
+        const triviaQualificationsInfo = challengesObject.author.qualifications.map(qual => ({
+            qualIcon: '📖',
+            qualName: qual,
+        }));
+        
+        const titlesContainer = document.createElement('div');
+        titlesContainer.className = 'titles-container';
+        
+        const titleHeader = document.createElement('h4');
+        titleHeader.textContent = 'Titles';
+        titlesContainer.appendChild(titleHeader);
+        
+        let titleContent;
+        for(let i=0; i<triviaTitlesInfo.length; i++){
+            titleContent = document.createElement('p');
+            titleContent.textContent = `${triviaTitlesInfo[i].titleIcon} ${triviaTitlesInfo[i].titleName}`
+            titlesContainer.appendChild(titleContent);
+        }
+
+        const skillsContainer = document.createElement('div');
+        skillsContainer.className = 'skills-container';
+        
+        const skillsHeader = document.createElement('h4');
+        skillsHeader.textContent = 'Skills';
+        skillsContainer.appendChild(skillsHeader);
+
+        let skillsContent;
+        for(let i=0; i<triviaSkillsInfo.length; i++){
+            skillsContent = document.createElement('p');
+            skillsContent.textContent = `${triviaSkillsInfo[i].skillIcon} ${triviaSkillsInfo[i].skillName}`;
+            skillsContainer.appendChild(skillsContent);
+        }
+
+        const qualificationsContainer = document.createElement('div');
+        qualificationsContainer.className = 'qualifications-container';
+
+        const qualificationsHeader = document.createElement('h4');
+        qualificationsHeader.textContent = 'Qualifications';
+        qualificationsContainer.appendChild(qualificationsHeader);
+
+        let qualificationsContent;
+        for(let i=0; i<triviaQualificationsInfo.length; i++){
+            qualificationsContent = document.createElement('p');
+            qualificationsContent.textContent = `${triviaQualificationsInfo[i].qualIcon} ${triviaQualificationsInfo[i].qualName}`;
+            qualificationsContainer.appendChild(qualificationsContent);
+        }
+
+        triviaInformationContainer.appendChild(titlesContainer)
+        triviaInformationContainer.appendChild(skillsContainer)
+        triviaInformationContainer.appendChild(qualificationsContainer);
+
+        triviaInformationContainer.style.display = 'flex';
+        triviaInformationContainer.style.justifyContent = 'space-between';
+        triviaInformationContainer.style.alignItems = 'start';
+        triviaInformationContainer.style.margin = '0 15%';
+
+        scriptElement.parentNode.insertBefore(triviaInformationContainer, scriptElement);
+    }
+    triviaInfo();
+
+    const keywordsContainer = document.createElement('div');
+    keywordsContainer.className = `keyword-container`;
+    function keywordList(){
+        const keywordContent = challengesObject.keywords.map(key => ({
+            keywordName: key,
+        }));
+        const keywordHeader = document.createElement('h4');
+        keywordHeader.textContent = 'Keywords';
+        keywordHeader.style.width = '80%';
+        keywordHeader.style.margin = '5px 10%';
+        keywordsContainer.appendChild(keywordHeader);
+
+        let keywordSpace = document.createElement('div');
+        keywordSpace.className = 'keyword-space';
+        let keyword;
+
+        function generateBackgroundColor(){
+            const characterUsed = `1234567890ABCDEF`;
+            let color = `#`;
+            for(let i=0; i<6; i++){
+                color += characterUsed.charAt(Math.floor(Math.random() * characterUsed.length));
+            }
+            return color;
+        }
+
+        for(let i=0; i<keywordContent.length; i++){
+            keyword = document.createElement('p');
+            keyword.textContent = `#${keywordContent[i].keywordName}`;
+            keyword.style.background = generateBackgroundColor();
+            keywordSpace.appendChild(keyword);
+            keywordsContainer.appendChild(keywordSpace);
+            
+            keyword.style.width = 'max-content';
+            keyword.style.padding = '5px';
+            keyword.style.borderRadius = '15px';
+            keyword.style.color = 'white';
+            keyword.style.marginBlockStart = '3px';
+            keyword.style.marginBlockEnd = '3px';
+            
+            keywordSpace.style.display = 'flex';
+            keywordSpace.style.flexWrap = 'wrap';
+            keywordSpace.style.gap = '3px';
+            keywordSpace.style.width = '80%';
+            keywordSpace.style.margin = 'auto';
+
+        }
+        
+
+        scriptElement.parentNode.insertBefore(keywordsContainer, scriptElement);
+    }
+    keywordList();
