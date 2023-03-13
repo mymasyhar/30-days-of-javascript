@@ -522,7 +522,7 @@ const challengesObject = {
             keywordSpace.style.display = 'flex';
             keywordSpace.style.flexWrap = 'wrap';
             keywordSpace.style.gap = '3px';
-            keywordSpace.style.width = '80%';
+            keywordSpace.style.width = '70%';
             keywordSpace.style.margin = 'auto';
 
         }
