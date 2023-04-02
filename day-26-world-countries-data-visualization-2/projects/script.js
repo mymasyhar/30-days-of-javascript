@@ -213,6 +213,9 @@ byStartLetter.addEventListener('click', () => {
     isContainsLetter = false;
     console.log(`is started letter: ${isStartLetter}, is contains letter: ${isContainsLetter}`);
 });
+byStartLetter.addEventListener('blur', () => {
+    isStartLetter = undefined;
+})
 byAnyWord.addEventListener('click', () => {
     byAnyWord.setAttribute('disabled', true);
     byStartLetter.removeAttribute('disabled');
@@ -220,6 +223,9 @@ byAnyWord.addEventListener('click', () => {
     isContainsLetter = true;
     console.log(`is started letter: ${isStartLetter}, is contains letter: ${isContainsLetter}`);
 });
+byAnyWord.addEventListener('blur', () => {
+    isContainsLetter = undefined;
+})
 
 function startLetter(letter){
     const result = countries.filter(country => country.startsWith(letter, 0));
@@ -242,7 +248,56 @@ function containsLetter(letter){
 
 const graphWrapper = document.querySelector('.graph-wrapper');
 
-let value = countryInput.value;
+function renderCountry(data){
+    let container;
+    let countryText;
+    for(let i=0; i<data.length; i++){
+        container = document.createElement('div');
+        countryText = document.createElement('h1');
+        countryText.textContent = data[i];
+        container.appendChild(countryText);
+        graphWrapper.appendChild(container);
+
+        container.style.width = '200px';
+        container.style.height = '200px';
+        container.style.textAlign = 'center';
+        container.style.display = 'flex';
+        container.style.justifyContent = 'center';
+        container.style.alignItems = 'center';
+
+        container.style.background = 'url(../images/map_image.jpeg)';
+        container.style.filter = 'opacity(0.4)';
+        container.style.backgroundSize = 'cover';
+
+        countryText.style.color = 'black';
+        countryText.style.display = 'block';
+        countryText.style.filter = 'opacity(1)';
+    }
+    graphWrapper.style.margin = '25px 5%';
+    graphWrapper.style.display = 'grid';
+    graphWrapper.style.gridTemplateColumns = 'repeat(6, 1fr)';
+    graphWrapper.style.gap = '15px';
+    graphWrapper.style.placeSelf = 'center';
+}
+
+countryInput.addEventListener('input', () => {
+    let value = countryInput.value;
+    let data;
+    if(isStartLetter == undefined && isContainsLetter == undefined){
+        data = countries;
+        renderCountry(data);
+    }
+    if(isStartLetter == true){
+        graphWrapper.innerHTML = '';
+        data = countries.filter(country => country.toLocaleLowerCase().startsWith(value, 0));
+        renderCountry(data);
+    }
+    if(isContainsLetter == true){
+        graphWrapper.innerHTML = '';
+        data = countries.filter(country => country.toLocaleLowerCase().includes(value));
+        renderCountry(data);
+    }
+});
 
 /*
 const graphWrapper = document.querySelector('.graph-wrapper');
