@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+        />
+        <title>Day 26 - World Countries Data Visualization</title>
+    </head>
+
+    <body>
+        <header>
+            <h1 class="header-title">WORLD COUNTRIES LIST</h1>
+            <h4 class="header-total-countries">
+                Total Number of Countries: <span class="country-count"></span>
+            </h4>
+            <p class="count-information"></p>
+
+            <div class="input-wrapper">
+                <div class="button-group">
+                    <button id="start-letter" class="button-starting">starting word</button>
+                    <button id="any-word" class="button-any">search with any word</button>
+                    <button id="sorted-data" class="button-order">
+                        <i class="fa-solid fa-sort-alpha-asc"></i>
+                    </button>
+                </div>
+                <div class="input-group">
+                    <input id="country-input" type="text" placeholder="search country ...">
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="graph-wrapper"></div>
+        </main>
+
+        <script src="./script.js"></script>
+    </body>
+</html>
