@@ -211,17 +211,26 @@ byStartLetter.addEventListener('click', () => {
     byAnyWord.removeAttribute('disabled', false);
     isStartLetter = true;
     isContainsLetter = false;
+    if(isStartLetter){
+        byStartLetter.style.opacity = '0.7';
+        byAnyWord.style.opacity = '1';
+    }
     console.log(`is started letter: ${isStartLetter}, is contains letter: ${isContainsLetter}`);
 });
 byStartLetter.addEventListener('blur', () => {
     isStartLetter = undefined;
-})
+});
+
 byAnyWord.addEventListener('click', () => {
     byAnyWord.setAttribute('disabled', true);
     byStartLetter.removeAttribute('disabled');
     isStartLetter = false;
     isContainsLetter = true;
     console.log(`is started letter: ${isStartLetter}, is contains letter: ${isContainsLetter}`);
+    if(isContainsLetter){
+        byAnyWord.style.opacity = '0.7';
+        byStartLetter.style.opacity = '1';
+    }
 });
 byAnyWord.addEventListener('blur', () => {
     isContainsLetter = undefined;
@@ -282,6 +291,7 @@ function renderCountry(data){
 
 countryInput.addEventListener('input', () => {
     let value = countryInput.value;
+    value.toLocaleLowerCase();
     let data;
     if(isStartLetter == undefined && isContainsLetter == undefined){
         data = countries;
@@ -299,6 +309,59 @@ countryInput.addEventListener('input', () => {
     }
 });
 
+function header(){
+    const header = document.querySelector('header');
+    const headerTitle = document.querySelector('.header-title');
+    
+    header.style.color = 'white';
+    header.style.background = 'url(../images/globe-2.jpg)';
+    header.style.padding = '10%';
+    header.style.backgroundSize = 'cover';
+
+    header.style.textAlign = 'center';
+    // header.style.gridAuto
+
+    const buttonGroup = document.querySelector('.button-group');
+    buttonGroup.style.padding = '10px';
+    //buttonGroup.style.margin = '10px 30%';
+    buttonGroup.style.display = 'flex';
+    buttonGroup.style.justifyContent = 'center';
+    buttonGroup.style.columnGap = '10px';
+    
+    const startLetter = document.getElementById('start-letter');
+    startLetter.style.padding = '10px 25px';
+    startLetter.style.fontSize = '18px';
+    startLetter.style.border = 'none';
+    startLetter.style.borderRadius = '5px';
+    startLetter.style.color = 'white';
+    startLetter.style.background = '#8F43EE';
+    
+    const anyWord = document.getElementById('any-word');
+    anyWord.style.padding = '10px 25px';
+    anyWord.style.fontSize = '18px';
+    anyWord.style.border = 'none';
+    anyWord.style.borderRadius = '5px';
+    anyWord.style.color = 'white';
+    anyWord.style.background = '#8F43EE';
+
+    const sortedData = document.getElementById('sorted-data');
+    sortedData.style.padding = '10px';
+    sortedData.style.fontSize = '18px';
+    sortedData.style.border = 'none';
+    sortedData.style.borderRadius = '5px';
+    sortedData.style.color = 'white';
+    sortedData.style.background = '#8F43EE';
+
+    countryInput.style.padding = '10px';
+    countryInput.style.width = '40%';
+    countryInput.style.border = 'none';
+    countryInput.style.borderRadius = '5px';
+    countryInput.style.opacity = '0.7';
+    
+    // startLetter.style.width = '40%';
+
+}
+header();
 /*
 const graphWrapper = document.querySelector('.graph-wrapper');
 function countryList(data){
