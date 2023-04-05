@@ -84,7 +84,7 @@ function subjectCounter(){
     counter = 0;
   }
 }
-const subjectResult = setInterval(subjectCounter, 2000);
+const subjectResult = setInterval(subjectCounter, 1000);
 
 function headerStyling(){
   const headerName = document.querySelector('.header-name');
@@ -96,10 +96,33 @@ function headerStyling(){
   headerSubject.style.gap = '20px';
   headerSubject.style.background = 'rgb(120,80,239)';
 
-  subjectText.style.transition = 'translateX(50%) 1.5s';
-  subjectText.style.transitionTimingFunction = 'ease-in-out';
-
   const headerInfo = document.getElementById('info');
   headerInfo.textContent = author.bio;
 }
 headerStyling();
+
+const techStackText = document.getElementById('tech-stack');
+let counterStack = 0;
+function changeStackText(){
+  let colorUsed = `#`;
+  const characterUsed = '1234567890ABCDEF';
+  function changeColorText(){
+    for(let i=0; i<6; i++){
+      colorUsed += characterUsed.charAt(Math.floor(Math.random() * characterUsed.length));
+    }
+    return colorUsed;
+  }
+  
+  techStackText.style.fontSize = '32px';
+  techStackText.style.color = changeColorText();
+
+  const data = author.keywords;
+  if(counterStack < data.length){
+    techStackText.textContent = data[counterStack]
+    counterStack++;
+  }
+  if(counterStack >= data.length){
+    counterStack = 0;
+  }
+}
+const stackResult = setInterval(changeStackText, 1000);
