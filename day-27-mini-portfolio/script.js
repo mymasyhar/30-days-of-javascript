@@ -93,8 +93,14 @@ function headerStyling(){
   const headerSubject = document.querySelector('.header-subject');
 
   headerSubject.style.display = 'flex';
+  headerSubject.style.alignItems = 'center';
   headerSubject.style.gap = '20px';
   headerSubject.style.background = 'rgb(120,80,239)';
+  headerSubject.style.fontSize = '24px';
+  headerSubject.style.fontWeight = 'bold';
+  headerSubject.style.padding = '10px 20px';
+
+  subjectIcon.style.fontSize = '32px';
 
   const headerInfo = document.getElementById('info');
   headerInfo.textContent = author.bio;
@@ -125,4 +131,4 @@ function changeStackText(){
     counterStack = 0;
   }
 }
-const stackResult = setInterval(changeStackText, 1000);
+const stackResult = setInterval(changeStackText, 1500);
