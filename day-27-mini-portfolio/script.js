@@ -14,12 +14,6 @@ const author = {
       icon: '🌐',
       title: 'Developer'
     },
-    
-    /*
-    ["🌱", "Educator"],
-    ["💻", "Programmer"],
-    ["🌐", "Developer"],
-    */
   ],
   course: [
     'JavaScript for Everyone',
@@ -66,6 +60,8 @@ const author = {
   ],
 };
 
+document.body.style.fontFamily = 'Montserrat';
+document.body.style.margin = '20px 15%';
 let subjectIcon = document.getElementById('subject-icon');
 let subjectText = document.getElementById('subject-text');
 
@@ -75,6 +71,8 @@ function subjectCounter(){
     icon: auth.icon,
     name: auth.title
   }));
+  subjectIcon.style.margin = '10px';
+  subjectText.style.margin = '10px';
   if(counter < data.length){
     subjectIcon.innerHTML = data[counter].icon;
     subjectText.innerHTML = data[counter].name;
@@ -83,6 +81,7 @@ function subjectCounter(){
   if(counter >= data.length){
     counter = 0;
   }
+
 }
 const subjectResult = setInterval(subjectCounter, 1000);
 
@@ -94,8 +93,8 @@ function headerStyling(){
 
   headerSubject.style.display = 'flex';
   headerSubject.style.alignItems = 'center';
-  headerSubject.style.gap = '20px';
-  headerSubject.style.background = 'rgb(120,80,239)';
+  headerSubject.style.columnGap = '20px';
+  headerSubject.style.background = '#FFE6C7';
   headerSubject.style.fontSize = '24px';
   headerSubject.style.fontWeight = 'bold';
   headerSubject.style.padding = '10px 20px';
@@ -103,7 +102,8 @@ function headerStyling(){
   subjectIcon.style.fontSize = '32px';
 
   const headerInfo = document.getElementById('info');
-  headerInfo.textContent = author.bio;
+  headerInfo.textContent = author.bio.toLocaleUpperCase;
+  headerInfo.style.margin = '20px 0 40px 0';
 }
 headerStyling();
 
@@ -124,7 +124,7 @@ function changeStackText(){
 
   const data = author.keywords;
   if(counterStack < data.length){
-    techStackText.textContent = data[counterStack]
+    techStackText.textContent = data[counterStack].toLocaleUpperCase();
     counterStack++;
   }
   if(counterStack >= data.length){
@@ -132,3 +132,47 @@ function changeStackText(){
   }
 }
 const stackResult = setInterval(changeStackText, 1500);
+
+function courseWrapper(){
+  const wrapper = document.querySelector('.course-wrapper');
+  let courseContainer;
+  let courseName;
+  for(let i=0; i<3; i++){
+    courseContainer = document.createElement('div');
+    courseContainer.className = 'course-container';
+    courseName = document.createElement('p');
+    switch (i) {
+      case 0:
+        courseName.textContent = 'javascript for everyone'.toLocaleUpperCase();
+        break;
+      case 1:
+        courseName.textContent = '30days of python'.toLocaleUpperCase();
+        break;
+      default:
+        courseName.textContent = '30days of javascript'.toLocaleUpperCase();
+        break;
+    }
+    courseContainer.appendChild(courseName);
+    wrapper.appendChild(courseContainer);
+
+    /*
+    courseContainer.style.background = '#FFE6C7';
+    // courseContainer.style.padding = '20px 20px';
+    courseContainer.style.display = 'flex';
+    courseContainer.style.alignItems = 'center';
+    courseContainer.style.justifyContent = 'center';
+    courseContainer.style.width = '200px';
+    courseContainer.style.height = '200px';
+    */
+    courseName.style.textAlign = 'center';
+    courseName.style.padding = '0 10px';
+
+  }
+  wrapper.style.display = 'grid';
+  // wrapper.style.gridTemplateColumn = 'repeat(3, maxmin(min-content))';
+  wrapper.style.gridAutoFlow = 'column';
+  wrapper.style.justifyContent = 'space-around';
+  wrapper.style.gap = '20px'
+
+}
+courseWrapper();

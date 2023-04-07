@@ -17,12 +17,35 @@
 
 .tech-stack-text{
   animation-name: slideUp;
-  animation-duration: 1.2s;
+  animation-duration: 1s;
   animation-iteration-count: infinite;
   animation-delay: 1s;
 }
 @keyframes slideUp {
-  0%{ opacity: 0.3; }
-  50%{opacity: 0.6;}
-  100%{opacity: 0.1;}
+  0%{ opacity: 0.3; transform: translateX(10px); }
+  100%{opacity: 0.1; transform: translateX(-30px);}
+}
+
+.course-container{
+  font-size: 20px;
+  width: 250px;
+  height: 250px;
+  background: #dedbd2c4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: zoom-in-zoom-out 1s ease infinite;
+}
+.course-container:hover{
+  background: #f8ac69;
+  /* transform: scale(1.2); */
+  animation: zoomUp 1.2s;
+}
+@keyframes zoomUp {
+  from{
+    transform: scale(1.1);
+  }
+  to{
+    transform: scale(1.2);
+  }
 }
