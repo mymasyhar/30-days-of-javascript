@@ -52,6 +52,123 @@ function headerStyling(){
 }
 headerStyling();
 
+const wrapper = document.querySelector('.wrapper');
+function renderLeaderboard(){
+  const fullDate = new Date();
+  const date = fullDate.getDate() < 10 ? `0${fullDate.getDate()}` : fullDate.getDate();
+  const month = fullDate.getMonth()+1 < 10 ? `0${fullDate.getMonth()}` : fullDate.getMonth();
+  const year = fullDate.getFullYear();
+  
+
+  let dataWrapper; // leaderboard container
+  
+  let nameContainer; // leaderboard name and createdAt
+  let fullName; // leaderboard fullname 
+  let createdAt; // leaderboard createdAt
+  
+  let country // leaderboard country;
+  let score // leaderboard score;
+  
+  let buttonGroup// button group for every list on leaderboard;
+  let deleteButton;
+  let deleteIcon;
+  let plusButton;
+  let minusButton;
+
+  for(let i=0; i<leaderboards.length; i++){
+    dataWrapper = document.createElement('div');
+    dataWrapper.id = `data-leaderboard-${i}`;
+
+    nameContainer = document.createElement('div');
+    nameContainer.className = `leaderboard-name`;
+    fullName = document.createElement('p');
+    fullName.textContent = `${leaderboards[i].firstName} ${leaderboards[i].lastName}`.toLocaleUpperCase();
+    createdAt = document.createElement('p');
+    createdAt.textContent = `${date}/${month}/${year}`;
+    nameContainer.appendChild(fullName);
+    nameContainer.appendChild(createdAt);
+    
+    dataWrapper.appendChild(nameContainer);
+    
+    country = document.createElement('p');
+    country.textContent = leaderboards[i].country;
+
+    dataWrapper.appendChild(country);
+
+    score = document.createElement('p');
+    score.textContent = leaderboards[i].score;
+
+    dataWrapper.appendChild(score);
+
+    buttonGroup = document.createElement('div');
+    buttonGroup.className = `button-leaderboard-group`;
+    buttonGroup.id = `button-group-${i}`;
+    
+    deleteButton = document.createElement('button');
+    deleteButton.id = `delete-button-${i}`;
+    deleteIcon = document.createElement('i');
+    deleteIcon.className = 'fas fa-trash-can';
+
+    deleteButton.appendChild(deleteIcon);
+    
+    plusButton = document.createElement('button');
+    plusButton.id = `plus-button-${i}`;
+    plusButton.textContent = '+5';
+    minusButton = document.createElement('button');
+    minusButton.id = `minus-button-${i}`;
+    minusButton.textContent = `-5`;
+
+    buttonGroup.appendChild(deleteButton)
+    buttonGroup.appendChild(plusButton)
+    buttonGroup.appendChild(minusButton)
+    
+    dataWrapper.appendChild(buttonGroup);
+
+    wrapper.appendChild(dataWrapper);
+
+    dataWrapper.style.display = 'grid';
+    dataWrapper.style.gridTemplateColumns = '1fr 1fr 1fr 100px';
+    dataWrapper.style.justifyItems = 'start';
+    dataWrapper.style.alignItems = 'center';
+    dataWrapper.style.background = '#FFC290';
+    dataWrapper.style.marginBottom = '10px';
+    dataWrapper.style.padding = '0 10px';
+
+    wrapper.style.margin = '10px 10%';
+  }
+}
+renderLeaderboard();
+
+const buttonSubmit = document.getElementById('submitScore');
+buttonSubmit.addEventListener('click', () => {
+  const fullDate = new Date();
+  const date = fullDate.getDate() < 10 ? `0${fullDate.getDate()}` : `${fullDate.getDate()}`;
+  const month = fullDate.getMonth()+1 < 10 ? `0${fullDate.getMonth()}` : `${fullDate.getMonth()}`;
+  const year = fullDate.getFullYear();
+  const hour = fullDate.getHours() < 10 ? `0${fullDate.getHours()}` : `${fullDate.getHours()}`;
+  const minute = fullDate.getMinutes() < 10 ? `0${fullDate.getMinutes()}` : `${fullDate.getMinutes()}`;
+  const createdAt = `${date}/${month}/${year} ${hour}:${minute}`
+  const firstName = document.getElementById('firstName').value;
+  const lastName = document.getElementById('lastName').value;
+  const country = document.getElementById('country').value;
+  const score = document.getElementById('score').value;
+  
+  const data = {firstName, lastName, createdAt, country, score};
+  if(firstName == '' || lastName == '' || country == '' || score == ''){
+    console.log('null data');
+  }else{
+    wrapper.innerHTML = '';
+    leaderboards.push(data);
+    renderLeaderboard();
+  }
+  
+});
+
+const divId = document.querySelectorAll('.button-leaderboard-group button');
+divId.forEach(div => {
+  
+})
+/*
 resultWrapper();
 
 const buttonSubmit = document.getElementById('submitScore');
@@ -78,7 +195,16 @@ buttonSubmit.addEventListener('click', () => {
     resultWrapper();
   }
   
-})
+});
+
+const buttonPlus = document.querySelectorAll('#plus');
+function plus(){
+  buttonPlus.forEach((e) => {
+    console.log(e.tagName);
+  });
+
+}
+plus();
 
 function resultWrapper(){
   const leaderboardsWrapper = document.querySelector('.wrapper');
@@ -126,16 +252,19 @@ function resultWrapper(){
 
     dataOption = document.createElement('div');
     buttonDelete = document.createElement('button');
+    buttonDelete.id = 'delete';
     buttonDeleteIcon = document.createElement('i');
     buttonDeleteIcon.className = 'fas fa-trash-can';
 
     buttonDelete.appendChild(buttonDeleteIcon);
 
     buttonPlus = document.createElement('button');
+    buttonPlus.id = 'plus';
     buttonPlus.textContent = '+5'
     
     buttonMinus = document.createElement('button');
     buttonMinus.textContent = '-5'
+    buttonMinus.id = 'minus';
     
     dataOption.appendChild(buttonDelete)
     dataOption.appendChild(buttonPlus)
@@ -158,3 +287,4 @@ function resultWrapper(){
     leaderboardsWrapper.style.margin = '10px 15%';
   }
 }
+*/
