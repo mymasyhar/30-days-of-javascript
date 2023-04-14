@@ -145,13 +145,19 @@ calculateButton.addEventListener('click', () => {
     const planet = selectedPlanet.value;
     const weight = planetWeight.value;
     if(weight == '' || planet == 'none'){
-        flexContainer.innerHTML = 'mass or planet is required'
+        flexContainer.innerHTML = '<h1>mass or planet is required</h1>'
+        flexContainer.style.color = 'white';
+        flexContainer.style.margin = '0 35%';
+        flexContainer.style.background = 'rgba(123,90,56,0.6)';
+        flexContainer.style.padding = '10px 25px';
+        flexContainer.style.width = 'max-content';
+    }else{
+        generatePlanet(weight, planet);
+        flexContainer.style.display = 'flex';
+        // flexContainer.style.justifyContent = 'space-around';
+        flexContainer.style.alignItems = 'center';
+        flexContainer.style.margin = '10px 25%';
+        flexContainer.style.columnGap = '30px';
     }
-    generatePlanet(weight, planet);
 
-    flexContainer.style.display = 'flex';
-    // flexContainer.style.justifyContent = 'space-around';
-    flexContainer.style.alignItems = 'center';
-    flexContainer.style.margin = '10px 25%';
-    flexContainer.style.columnGap = '30px';
 });

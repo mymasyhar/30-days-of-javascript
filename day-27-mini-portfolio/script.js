@@ -102,7 +102,7 @@ function headerStyling(){
   subjectIcon.style.fontSize = '32px';
 
   const headerInfo = document.getElementById('info');
-  headerInfo.textContent = author.bio.toLocaleUpperCase;
+  headerInfo.textContent = author.bio;
   headerInfo.style.margin = '20px 0 40px 0';
 }
 headerStyling();
