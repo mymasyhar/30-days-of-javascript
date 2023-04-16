@@ -4,16 +4,20 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Day 28 - Leaderboards</title>
   </head>
   <body>
-    <div class="leaderboard-form">
-      <input type="text" id="firstName" placeholder="first name" />
-      <input type="text" id="lastName" placeholder="last name" />
-      <input type="text" id="country" placeholder="country" />
-      <input type="text" id="score" placeholder="score" />
-      <button id="submitData">submit</button>
-    </div>
+    <header>
+      <h1>Leaderboard Challenge</h1>
+      <div class="leaderboard-form">
+        <input type="text" id="firstName" placeholder="first name" />
+        <input type="text" id="lastName" placeholder="last name" />
+        <input type="text" id="country" placeholder="country" />
+        <input type="text" id="score" placeholder="score" />
+        <button id="submitData">add player</button>
+      </div>
+    </header>
     <div class="warning"></div>
     <div class="leaderboard-container"></div>
 

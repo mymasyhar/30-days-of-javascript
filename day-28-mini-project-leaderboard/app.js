@@ -21,6 +21,15 @@ const leaderboard = [
     createdAt: '15/04/2023 23:40',
   }
 ];
+document.body.style.fontFamily = 'Montserrat';
+const header = document.querySelector('header');
+header.style.textAlign = 'center';
+
+const leaderboardForm = document.querySelectorAll('.leaderboard-form input');
+leaderboardForm.forEach(button => {
+  button.style.padding = '15px';
+  button.style.margin = '5px';
+});
 
 const leaderboardContainer = document.querySelector('.leaderboard-container');
 
@@ -51,6 +60,7 @@ const addData = (data) => {
 }
 
 const submitButton = document.getElementById('submitData');
+submitButton.style.padding = '15px';
 submitButton.addEventListener('click', () => {
   const firstName = document.getElementById('firstName')
   const lastName = document.getElementById('lastName')
@@ -65,6 +75,7 @@ submitButton.addEventListener('click', () => {
   }
   if(submitedData.firstName == '' || submitedData.lastName == '' || submitedData.country == '' || submitedData.score == ''){
     warningContainer.innerHTML = `<h4 style="color:red;">all input are required</h4>`;
+    leaderboardContainer.innerHTML = '';
     leaderboardPosition(leaderboard);
     renderLeaderboard(leaderboard)
   }else{
@@ -97,17 +108,17 @@ const renderLeaderboard = () => {
     leaderboardList.className = 'leaderboard-list';
 
     nameContainer = document.createElement('div');
-    fullName = document.createElement('p');
-    fullName.textContent = `${processedData[i][1].firstName} ${processedData[i][1].lastName}`;
+    fullName = document.createElement('h3');
+    fullName.textContent = `${processedData[i][1].firstName.toUpperCase()} ${processedData[i][1].lastName.toUpperCase()}`;
     createdAt = document.createElement('p');
-    createdAt.textContent = `${processedData[i][1].createdAt}`;
+    createdAt.textContent = `${processedData[i][1].createdAt.toUpperCase()}`;
     nameContainer.appendChild(fullName)
     nameContainer.appendChild(createdAt);
 
     leaderboardList.appendChild(nameContainer);
 
     country = document.createElement('p');
-    country.textContent = `${processedData[i][1].country}`;
+    country.textContent = `${processedData[i][1].country.toUpperCase()}`;
 
     leaderboardList.appendChild(country);
     
@@ -120,11 +131,17 @@ const renderLeaderboard = () => {
     actionContainer = document.createElement('div');
     actionContainer.className = 'action-group';
     deleteButton = document.createElement('button');
-    deleteButton.textContent = 'delete';
+    deleteButton.innerHTML = `<i class = 'fas fa-trash-can'></i>`;
     deleteButton.id = 'delete';
+    deleteButton.addEventListener('click', () => {
+      leaderboard.splice(processedData[i][0], 1);
+      leaderboardContainer.innerHTML = '';
+      leaderboardPosition(leaderboard);
+      renderLeaderboard(leaderboard);
+    })
 
     plusButton = document.createElement('button');
-    plusButton.textContent = 'plus';
+    plusButton.textContent = '+5';
     plusButton.id = 'plus';
     plusButton.addEventListener('click', () => {
       processedData[i][1].score += 5;
@@ -135,7 +152,7 @@ const renderLeaderboard = () => {
     })
 
     minusButton = document.createElement('button');
-    minusButton.textContent = 'minus';
+    minusButton.textContent = '-5';
     minusButton.id = 'minus';
     minusButton.addEventListener('click', () => {
       processedData[i][1].score -= 5;
@@ -155,16 +172,36 @@ const renderLeaderboard = () => {
     
     leaderboardList.style.display = 'flex';
     leaderboardList.style.margin = '10px 15%';
+    leaderboardList.style.padding = '10px 15px';
     leaderboardList.style.justifyContent = 'space-between';
     leaderboardList.style.alignItems = 'center';
+    leaderboardList.style.background = '#FFEBEB';
     
+    fullName.style.margin = '0 0 10px 0';
+    
+    createdAt.style.margin = '0';
+    createdAt.style.color = '#6DA9E4';
+
+    country.style.fontSize = '20px'
+    
+    score.style.fontSize = '20px';
+
+    const allActionButton = document.querySelectorAll('.leaderboard-list button');
+    allActionButton.forEach(button => {
+      button.style.padding = '15px';
+      button.style.margin = '10px 5px';
+      button.style.border = 'none';
+      button.style.background = '#F6BA6F';
+      button.style.borderRadius = '50%';
+      button.style.cursor = 'pointer';
+      button.style.aspectRatio = '1/1';
+
+      button.addEventListener('onmouse', () => {
+        button.style.background = '#ADE4DB';
+      })
+    })
+    
+
   }
   return leaderboardContainer;
 }
-
-/*
-addData({firstName: 'Masyhar', lastName: 'M.', country: 'USA', score: 900, createdAt: new Date()});
-addData({firstName: 'Nur', lastName: 'F.', country: 'USA', score: 1900, createdAt: new Date()});
-// leaderboardPosition(leaderboard);
-renderLeaderboard(leaderboard);
-*/
