@@ -1,12 +1,4 @@
-const leaderboardData = [
-  {
-    firstName: 'firstName.value',
-    lastName: 'lastName.value',
-    country: 'country.value',
-    score: 'score.value',
-    createdAt: '14/04/2023 15:53',
-  }
-];
+const leaderboardData = [];
 
 function generateDate(){
   const date = new Date();
@@ -36,11 +28,20 @@ addLeaderboard.addEventListener('click', () => {
     createdAt: generateDate(),
   }
   leaderboardData.push(data);
-  container.appendChild(renderLeaderboard());
-  renderLeaderboard();
+  container.appendChild(renderLeaderboard(leaderboardData));
+  renderLeaderboard(leaderboardData);
   console.log(leaderboardData);
 });
-function renderLeaderboard(){
+
+function leaderboardOrder(data){
+  const result = Object.entries(data).sort((a,b) => b[1].score - a[1].score);
+  renderLeaderboard(result);
+  return result;
+
+}
+console.log(leaderboardOrder(leaderboardData));
+
+function renderLeaderboard(leaderboard){
   let leaderboardList;
   
   let nameContainer;
@@ -56,28 +57,28 @@ function renderLeaderboard(){
   let plusButton;
   let minusButton;
 
-  for(let i=0; i<leaderboardData.length; i++){
+  for(let i=0; i<leaderboard.length; i++){
     leaderboardList = document.createElement('div');
     leaderboardList.className = 'leaderboard-list';
 
     nameContainer = document.createElement('div');
     fullName = document.createElement('p');
-    fullName.textContent = `${leaderboardData[i].firstName} ${leaderboardData[i].lastName}`;
+    fullName.textContent = `${leaderboard[i].firstName} ${leaderboard[i].lastName}`;
     createdAt = document.createElement('p');
-    createdAt.textContent = `${leaderboardData[i].createdAt}`;
+    createdAt.textContent = `${leaderboard[i].createdAt}`;
     nameContainer.appendChild(fullName)
     nameContainer.appendChild(createdAt);
 
     leaderboardList.appendChild(nameContainer);
 
     country = document.createElement('p');
-    country.textContent = `${leaderboardData[i].country}`;
+    country.textContent = `${leaderboard[i].country}`;
 
     leaderboardList.appendChild(country);
     
     score = document.createElement('p');
     score.id = 'leaderboard-score';
-    score.textContent = `${leaderboardData[i].score}`;
+    score.textContent = `${leaderboard[i].score}`;
 
     leaderboardList.appendChild(score);
 
@@ -85,30 +86,44 @@ function renderLeaderboard(){
     actionContainer.className = 'action-group';
     deleteButton = document.createElement('button');
     deleteButton.textContent = 'delete';
-    deleteButton.id = 'delete';
+    deleteButton.className = 'delete';
+    
     
     deleteButton.addEventListener('click', (e) => {
+      e.preventDefault();
       e.target.parentNode.parentNode.remove();
-      leaderboardData.splice(i, 1);
+      leaderboard.splice(i, 1);
+      renderLeaderboard(leaderboardData);
     })
+    
     
     plusButton = document.createElement('button');
     plusButton.textContent = 'plus';
-    plusButton.id = 'plus';
-    plusButton.addEventListener('click', () => {
-      leaderboardData[i].score += 5;
-      score.textContent = leaderboardData[i].score;
-      console.log(leaderboardData[i].score);
+    plusButton.className = 'plus';
+    
+    plusButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      leaderboard[i].score += 5;
+      score.textContent = leaderboard[i].score;
+      renderLeaderboard(leaderboardData);
+      console.log(leaderboard[i].score);
+      leaderboardOrder(leaderboardData)
     })
+    
     
     minusButton = document.createElement('button');
     minusButton.textContent = 'minus';
-    minusButton.id = 'minus';
-    minusButton.addEventListener('click', () => {
-      leaderboardData[i].score -= 5;
-      score.textContent = leaderboardData[i].score;
-      console.log(leaderboardData[i].score);
+    minusButton.className = 'minus';
+    
+    minusButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      leaderboard[i].score -= 5;
+      score.textContent = leaderboard[i].score;
+      renderLeaderboard(leaderboardData);
+      console.log(leaderboard[i].score);
+      leaderboardOrder(leaderboardData)
     })
+    
     
     actionContainer.appendChild(deleteButton)
     actionContainer.appendChild(plusButton)
@@ -118,3 +133,10 @@ function renderLeaderboard(){
   }
   return leaderboardList;
 }
+
+const deleteButton = document.querySelectorAll('.delete');
+deleteButton.forEach(del => {
+  del.addEventListener('click', (e) => {
+    console.log(e.target.parentNode);
+  })
+})
