@@ -26,29 +26,31 @@ function generateStyle(){
     insertedChar.style.color = generateColor();
     textContainer.appendChild(insertedChar);
   }
-  textContainer.style.fontSize = fontSize();
-  textContainer.style.position = 'fixed';
+  // textContainer.style.fontSize = fontSize();
+  // textContainer.style.position = 'fixed';
 }
 
 const textWrapper = document.querySelector(".text-wrapper");
 const backgroundChange = () =>{
   textWrapper.style.background = generateColor();
-  textWrapper.style.height = '100vh'
-  textWrapper.style.width = '100%';
-  textWrapper.style.margin = '0';
-  textWrapper.style.position = 'absolute';
-  textWrapper.style.top = '0';
-  textWrapper.style.left = '0';
+  textWrapper.style.height = '75vh'
+  textWrapper.style.width = '85%';
+  textWrapper.style.margin = '20px 20px';
+  // textWrapper.style.position = 'absolute';
+  // textWrapper.style.top = '0';
+  // textWrapper.style.left = '0';
   textWrapper.style.padding = '5%';
 }
 
 const animating = () => {
+  const fontFam = ['Montserrat', 'Twentieth Century', 'Roboto', 'Poppins', 'Futura'];
   textContainer.innerHTML = '';
+  textContainer.style.fontFamily = fontFam[Math.floor(Math.random() * fontFam.length)];
   textContainer.style.fontSize = fontSize();
   generateStyle();
 }
 // animating();
 
 // const result = setInterval(animating, 2000);
-const background = setInterval(backgroundChange, 2000);
-const result = setInterval(animating, 1800);
+const background = setInterval(backgroundChange, 3000);
+const result = setInterval(animating, 5000);
