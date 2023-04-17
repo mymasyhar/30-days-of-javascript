@@ -1,0 +1,15 @@
+span, .text-wrapper {
+  animation: myAnim 5s ease-in-out 0s infinite normal forwards;
+}
+@keyframes myAnim {
+	0%,
+	50%,
+	100% {
+		opacity: 1;
+	}
+
+	25%,
+	75% {
+		opacity: 0;
+	}
+}
