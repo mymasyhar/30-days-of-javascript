@@ -2933,8 +2933,8 @@ function renderResult(data){
 	resultContainer.style.placeItems = 'center';
 	resultContainer.style.gridTemplateColumns = 'repeat(7, 250px)';
 }
-const data = countries;
-renderResult(data);
+// const data = countries;
+// renderResult(data);
 
 const inputText = document.getElementById('name');
 
@@ -2963,16 +2963,29 @@ const buttonPopulation = document.getElementById('byPopulation').addEventListene
 	capitalFilter = false;
 	console.log(`by population button`);
 	console.log(`nameFilter: ${nameFilter}, capitalFilter: ${capitalFilter}, populationFilter: ${populationFilter}`);
+
+	const data = countries.sort((a,b) => b.population - a.population).filter(country => country.name?.toLocaleLowerCase().includes(inputText.value));
+		console.log(data);
+		resultContainer.innerHTML = '';
+		renderResult(data);
 });
+
 inputText.addEventListener('input', () => {
-	if(nameFilter){
-		const data = countries.sort((a,b) => a.name.toLocaleLowerCase() - b.name.toLocaleLowerCase()).filter(country => country.name.toLocaleLowerCase().includes(inputText.value));
+	if(nameFilter == true){
+		const data = countries.sort((a,b) => a.name.toLocaleLowerCase() - b.name.toLocaleLowerCase()).filter(country => country.name?.toLocaleLowerCase().includes(inputText.value));
 		resultContainer.innerHTML = '';
 		renderResult(data);
 	}
-	/*
-	if(capitalFilter){
-		const data = countries.sort((a,b) => )
+	if(capitalFilter == true){
+		const data = countries.sort((a,b) => a.capital?.toLocaleLowerCase() - b.capital?.toLocaleLowerCase()).filter(country => country.capital?.toLocaleLowerCase().includes(inputText.value));
+		console.log(data);
+		resultContainer.innerHTML = '';
+		renderResult(data);
 	}
-	*/
-})
+	if(populationFilter == true){
+		const data = countries.sort((a,b) => a.population - b.population).filter(country => country.name?.toLocaleLowerCase().includes(inputText.value));
+		console.log(data);
+		resultContainer.innerHTML = '';
+		renderResult(data);
+	}
+});
