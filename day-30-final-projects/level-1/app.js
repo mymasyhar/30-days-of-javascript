@@ -2910,7 +2910,7 @@ function renderResult(data){
 		countryFlag = document.createElement('img');
 		countryFlag.src = data[i].flag;
 		countryFlag.width = '100'
-		countryFlag.height = '75'
+		countryFlag.height = '80'
 
 		countryName = document.createElement('p');
 		countryName.textContent = data[i].name;
@@ -2952,12 +2952,12 @@ function renderResult(data){
 // renderResult(data);
 
 const inputText = document.getElementById('name');
+const searchingInfo = document.getElementById('searchingInfo');
 
 let nameFilter;
 let capitalFilter;
 let populationFilter;
 const buttonName = document.getElementById('byName').addEventListener('click', () => {
-	resultContainer.innerHTML = '';
 	nameFilter = true;
 	capitalFilter = false;
 	populationFilter = false;
@@ -2966,7 +2966,6 @@ const buttonName = document.getElementById('byName').addEventListener('click', (
 });
 
 const buttonCapital = document.getElementById('byCapital').addEventListener('click', () => {
-	resultContainer.innerHTML = '';
 	nameFilter = false;
 	capitalFilter = true;
 	populationFilter = false;
@@ -2975,7 +2974,6 @@ const buttonCapital = document.getElementById('byCapital').addEventListener('cli
 });
 
 const buttonPopulation = document.getElementById('byPopulation').addEventListener('click', () => {
-	resultContainer.innerHTML = '';
 	populationFilter = true;
 	nameFilter = false;
 	capitalFilter = false;
@@ -2989,21 +2987,23 @@ const buttonPopulation = document.getElementById('byPopulation').addEventListene
 });
 
 inputText.addEventListener('input', () => {
+	let data;
 	if(nameFilter == true){
-		const data = countries.sort((a,b) => a.name.toLocaleLowerCase() - b.name.toLocaleLowerCase()).filter(country => country.name?.toLocaleLowerCase().includes(inputText.value));
+		data = countries.sort((a,b) => a.name.toLocaleLowerCase() - b.name.toLocaleLowerCase()).filter(country => country.name?.toLocaleLowerCase().includes(inputText.value));
 		resultContainer.innerHTML = '';
 		renderResult(data);
 	}
 	if(capitalFilter == true){
-		const data = countries.sort((a,b) => a.capital?.toLocaleLowerCase() - b.capital?.toLocaleLowerCase()).filter(country => country.capital?.toLocaleLowerCase().includes(inputText.value));
+		data = countries.sort((a,b) => a.capital?.toLocaleLowerCase() - b.capital?.toLocaleLowerCase()).filter(country => country.capital?.toLocaleLowerCase().includes(inputText.value));
 		console.log(data);
 		resultContainer.innerHTML = '';
 		renderResult(data);
 	}
 	if(populationFilter == true){
-		const data = countries.filter(country => country.name?.toLocaleLowerCase().includes(inputText.value)).sort((a,b) => b.population - a.population);
+		data = countries.filter(country => country.name.toLocaleLowerCase().includes(inputText.value)).sort((a,b) => b.population - a.population).splice(0, 10);
 		console.log(data);
 		resultContainer.innerHTML = '';
 		renderResult(data);
 	}
+	searchingInfo.textContent = `you have matched ${data.length} countries`
 });
