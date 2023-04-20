@@ -2865,6 +2865,17 @@ const countries = [
 ];
 
 document.body.style.fontFamily = 'Montserrat';
+function headerContainer(){
+	const headerWrapper = document.querySelector('header');
+	
+	const totalCountries = document.getElementById('total');
+	totalCountries.textContent = countries.length;
+	
+	headerWrapper.style.padding = '10px 20px';
+	headerWrapper.style.textAlign = 'center';
+}
+headerContainer();
+
 
 function commafy( num ) {
 	var str = num.toString().split('.');
@@ -2922,16 +2933,20 @@ function renderResult(data){
 		countryContainer.appendChild(population)
 
 		resultContainer.appendChild(countryContainer);
+
+		countryFlagContainer.style.marginBottom = '15px';
 		
+		capital.style.margin = '0 0 5px 0';
+		languages.style.margin = '0 0 5px 0';
+		population.style.margin = '0 0 5px 0';
+
 		countryFlag.style.boxShadow = 'rgba(0, 0, 0, 0.24) 0px 3px 8px';
-		countryName.style.margin = '0 0 10px 0';
-		countryName.style.textAlign = 'center';
+		countryFlag.style.marginBottom = '5px';
+		
+		countryName.style.margin = '0';
+		countryName.style.placeContent = 'center'
 	}
-	resultContainer.style.margin = '10px';
-	resultContainer.style.maxWidth = '100vw';
-	resultContainer.style.display = 'grid';
-	resultContainer.style.placeItems = 'center';
-	resultContainer.style.gridTemplateColumns = 'repeat(7, 250px)';
+	
 }
 // const data = countries;
 // renderResult(data);
@@ -2942,6 +2957,7 @@ let nameFilter;
 let capitalFilter;
 let populationFilter;
 const buttonName = document.getElementById('byName').addEventListener('click', () => {
+	resultContainer.innerHTML = '';
 	nameFilter = true;
 	capitalFilter = false;
 	populationFilter = false;
@@ -2950,6 +2966,7 @@ const buttonName = document.getElementById('byName').addEventListener('click', (
 });
 
 const buttonCapital = document.getElementById('byCapital').addEventListener('click', () => {
+	resultContainer.innerHTML = '';
 	nameFilter = false;
 	capitalFilter = true;
 	populationFilter = false;
@@ -2958,6 +2975,7 @@ const buttonCapital = document.getElementById('byCapital').addEventListener('cli
 });
 
 const buttonPopulation = document.getElementById('byPopulation').addEventListener('click', () => {
+	resultContainer.innerHTML = '';
 	populationFilter = true;
 	nameFilter = false;
 	capitalFilter = false;
@@ -2983,7 +3001,7 @@ inputText.addEventListener('input', () => {
 		renderResult(data);
 	}
 	if(populationFilter == true){
-		const data = countries.sort((a,b) => a.population - b.population).filter(country => country.name?.toLocaleLowerCase().includes(inputText.value));
+		const data = countries.filter(country => country.name?.toLocaleLowerCase().includes(inputText.value)).sort((a,b) => b.population - a.population);
 		console.log(data);
 		resultContainer.innerHTML = '';
 		renderResult(data);

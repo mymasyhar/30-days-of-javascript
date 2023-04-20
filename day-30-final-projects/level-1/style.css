@@ -1,0 +1,22 @@
+.result-container {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 10px;
+}
+
+.country-container {
+  background-color: #8ccbff;
+  height: 0;
+  padding-bottom: 100%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.country-container:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+}
+
