@@ -2876,6 +2876,39 @@ function headerContainer(){
 }
 headerContainer();
 
+function formStyling(){
+	const formContainer = document.querySelector('.form-container');
+	const inputContainer = document.querySelector('.input-container');
+	const input = document.getElementById('name');
+	const buttonContainer = document.querySelector('.button-container');
+	const allButtons = document.querySelectorAll('.button-container button');
+
+	formContainer.style.background = '#F1F6F9';
+	formContainer.style.padding = '20px 10px';
+	formContainer.style.textAlign = 'center';
+
+	inputContainer.style.margin = '10px auto';
+	inputContainer.style.width = '800px';
+
+	input.style.width = '80%';
+	input.style.height = '30px';
+
+	buttonContainer.style.width = '80%';
+	buttonContainer.style.display = 'flex';
+	buttonContainer.style.gap = '20px';
+	buttonContainer.style.alignItems = 'center';
+	buttonContainer.style.margin = '0 15%';
+
+	allButtons.forEach(button => {
+		button.style.padding = '15px';
+		button.style.width = '20%';
+		button.style.fontSize = '1rem';
+		button.style.background = '#212A3E';
+		button.style.color = '#9BA4B5';
+	});
+
+}
+formStyling();
 
 function commafy( num ) {
 	var str = num.toString().split('.');
@@ -2993,7 +3026,7 @@ const graphButton = document.getElementById('graph').addEventListener('click', (
 })
 
 inputText.addEventListener('input', () => {
-	let data;
+	
 	if(nameFilter == true){
 		data = countries.sort((a,b) => a.name.toLocaleLowerCase() - b.name.toLocaleLowerCase()).filter(country => country.name?.toLocaleLowerCase().includes(inputText.value));
 		resultContainer.innerHTML = '';
@@ -3010,65 +3043,6 @@ inputText.addEventListener('input', () => {
 		console.log(data);
 		resultContainer.innerHTML = '';
 		renderResult(data);
-		if(graphFilter == true){
-			populationContainer.innerHTML = '';
-			renderGraph(data);
-		}
 	}
 	searchingInfo.textContent = `you have matched ${data.length} countries`
 });
-
-const populationContainer = document.querySelector('.population-container');
-
-function renderGraph(data){
-	let countryNameContainer;
-	let countryName;
-	
-	let countryBarContainer;
-	let countryBar;
-	
-	let countryPopulationContainer;
-	let countryPopulation;
-
-	for(let i=0; i<data.length; i++){
-		countryNameContainer = document.createElement('div');
-		countryNameContainer.className = 'country-name-container';
-
-		countryName = document.createElement('p');
-		countryName.textContent = data[i].name;
-
-		countryNameContainer.appendChild(countryName);
-		
-		countryBarContainer = document.createElement('div');
-		countryBarContainer.className = 'country-bar-container';
-
-		countryBar = document.createElement('p');
-		countryBar.style.height = '10px';
-		countryBar.style.width = `${data[i].population / 1200000}px`;
-		countryBar.style.background = '#EFDA23';
-
-		countryBarContainer.appendChild(countryBar);
-		
-		countryPopulationContainer = document.createElement('div');
-		countryPopulationContainer.className = 'country-population-container';
-
-		countryPopulation = document.createElement('p');
-		countryPopulation.textContent = data[i].population;
-
-		countryPopulationContainer.appendChild(countryPopulation);
-
-		countryNameContainer.style.display = 'flex';
-		countryNameContainer.style.flexDirection = 'row';
-
-		
-		populationContainer.appendChild(countryNameContainer);
-		populationContainer.appendChild(countryBarContainer);
-		populationContainer.appendChild(countryPopulationContainer);
-	}
-
-	populationContainer.style.display = 'flex';
-	populationContainer.style.justifyContent = 'center';
-	populationContainer.style.alignItems = 'center';
-	populationContainer.style.flexDirection = 'row';
-}
-
