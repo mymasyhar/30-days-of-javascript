@@ -2934,6 +2934,8 @@ function renderResult(data){
 
 		resultContainer.appendChild(countryContainer);
 
+		resultContainer.style.marginBottom = '30px';
+
 		countryFlagContainer.style.marginBottom = '15px';
 		
 		capital.style.margin = '0 0 5px 0';
@@ -2948,8 +2950,6 @@ function renderResult(data){
 	}
 	
 }
-// const data = countries;
-// renderResult(data);
 
 const inputText = document.getElementById('name');
 const searchingInfo = document.getElementById('searchingInfo');
@@ -2957,6 +2957,7 @@ const searchingInfo = document.getElementById('searchingInfo');
 let nameFilter;
 let capitalFilter;
 let populationFilter;
+let graphFilter;
 const buttonName = document.getElementById('byName').addEventListener('click', () => {
 	nameFilter = true;
 	capitalFilter = false;
@@ -2986,6 +2987,11 @@ const buttonPopulation = document.getElementById('byPopulation').addEventListene
 		renderResult(data);
 });
 
+const graphButton = document.getElementById('graph').addEventListener('click', () => {
+	graphFilter = true;
+	console.log(` graphFilter is ${graphFilter}`);
+})
+
 inputText.addEventListener('input', () => {
 	let data;
 	if(nameFilter == true){
@@ -3004,6 +3010,65 @@ inputText.addEventListener('input', () => {
 		console.log(data);
 		resultContainer.innerHTML = '';
 		renderResult(data);
+		if(graphFilter == true){
+			populationContainer.innerHTML = '';
+			renderGraph(data);
+		}
 	}
 	searchingInfo.textContent = `you have matched ${data.length} countries`
 });
+
+const populationContainer = document.querySelector('.population-container');
+
+function renderGraph(data){
+	let countryNameContainer;
+	let countryName;
+	
+	let countryBarContainer;
+	let countryBar;
+	
+	let countryPopulationContainer;
+	let countryPopulation;
+
+	for(let i=0; i<data.length; i++){
+		countryNameContainer = document.createElement('div');
+		countryNameContainer.className = 'country-name-container';
+
+		countryName = document.createElement('p');
+		countryName.textContent = data[i].name;
+
+		countryNameContainer.appendChild(countryName);
+		
+		countryBarContainer = document.createElement('div');
+		countryBarContainer.className = 'country-bar-container';
+
+		countryBar = document.createElement('p');
+		countryBar.style.height = '10px';
+		countryBar.style.width = `${data[i].population / 1200000}px`;
+		countryBar.style.background = '#EFDA23';
+
+		countryBarContainer.appendChild(countryBar);
+		
+		countryPopulationContainer = document.createElement('div');
+		countryPopulationContainer.className = 'country-population-container';
+
+		countryPopulation = document.createElement('p');
+		countryPopulation.textContent = data[i].population;
+
+		countryPopulationContainer.appendChild(countryPopulation);
+
+		countryNameContainer.style.display = 'flex';
+		countryNameContainer.style.flexDirection = 'row';
+
+		
+		populationContainer.appendChild(countryNameContainer);
+		populationContainer.appendChild(countryBarContainer);
+		populationContainer.appendChild(countryPopulationContainer);
+	}
+
+	populationContainer.style.display = 'flex';
+	populationContainer.style.justifyContent = 'center';
+	populationContainer.style.alignItems = 'center';
+	populationContainer.style.flexDirection = 'row';
+}
+
