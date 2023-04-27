@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css">
+    <title>Day 30 - Validating Forms</title>
+  </head>
+  <body>
+    <h1>Validating Web Forms</h1>
+    <form>
+      <label for="first-name">
+        <h2>First Name</h2>
+      </label>
+      <input type="text" name="firstname" placeholder="first name" />
+      <p>First name must be and contain 3 - 16 characters</p>
+
+      <label for="last-name">
+        <h2>Last Name</h2>
+      </label>
+      <input type="text" name="lastname" placeholder="last name" />
+      <p>Last name must be and contain 3 - 16 characters</p>
+      
+      <label for="email">
+        <h2>Email</h2>
+      </label>
+      <input type="text" name="email" placeholder="email" />
+      <p>Email must be a valid address, e.g. me@mydomain.com</p>
+
+      <label for="password">
+        <h2>Password</h2>
+      </label>
+      <input type="password" name="password" placeholder="password" />
+      <p>
+        Password must alphanumeric (@, _ and - are also allowed) and be 6 - 20
+        characters
+      </p>
+
+      <label for="telephone">
+        <h2>Telephone</h2>
+      </label>
+      <input type="text" name="telephone" placeholder="telephone" />
+      <p>Telephone must be a valid UK telephone number (11 digits)</p>
+
+      <label for="bio">
+        <h2>Your bio</h2>
+      </label>
+      <input type="text" name="bio" placeholder="Your bio" />
+      <p>
+        Bio must contain only lowercase letters, numbers and hyphens and be 8 -
+        50 characters
+      </p>
+
+      <button type="submit">submit</button>
+    </form>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
